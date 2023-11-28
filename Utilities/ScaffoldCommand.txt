@@ -1,0 +1,1 @@
+Scaffold-DbContext -Provider Microsoft.EntityFrameworkCore.SqlServer -Connection "Server=(local);Initial Catalog=EmulairWEB;Integrated Security=true;TrustServerCertificate=true;" -OutputDir "Models" -ContextDir "Context"

@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair", "EmulairWEB\Emulair.csproj", "{DB4798FD-B8BF-4890-9E7F-E4AD5E54BCF7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A} = {334490B3-DE44-4A92-8025-9EAEC88DDD9A}
+		{4711552B-B687-4D67-999A-549EEF803879} = {4711552B-B687-4D67-999A-549EEF803879}
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59} = {9F04A44C-F013-488A-AFE7-70E3645FBA59}
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216} = {EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{B78D9D70-81CC-4DD2-85DE-E607B14D6023}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0EF9E650-13E7-482D-AC18-3DFE823FB0EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastracture", "Infrastracture", "{7E9ECDCE-0144-4BAC-B147-BB5C31D23B17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair.Entities", "Emulair.Entities\Emulair.Entities.csproj", "{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}"
+	ProjectSection(ProjectDependencies) = postProject
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A} = {334490B3-DE44-4A92-8025-9EAEC88DDD9A}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair.BusinessLogic", "Emulair.BusinessLogic\Emulair.BusinessLogic.csproj", "{4711552B-B687-4D67-999A-549EEF803879}"
+	ProjectSection(ProjectDependencies) = postProject
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A} = {334490B3-DE44-4A92-8025-9EAEC88DDD9A}
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59} = {9F04A44C-F013-488A-AFE7-70E3645FBA59}
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216} = {EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair.DataAccess", "Emulair.DataAccess\Emulair.DataAccess.csproj", "{9F04A44C-F013-488A-AFE7-70E3645FBA59}"
+	ProjectSection(ProjectDependencies) = postProject
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A} = {334490B3-DE44-4A92-8025-9EAEC88DDD9A}
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216} = {EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair.Common", "Emulair.Common\Emulair.Common.csproj", "{334490B3-DE44-4A92-8025-9EAEC88DDD9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB4798FD-B8BF-4890-9E7F-E4AD5E54BCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB4798FD-B8BF-4890-9E7F-E4AD5E54BCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB4798FD-B8BF-4890-9E7F-E4AD5E54BCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB4798FD-B8BF-4890-9E7F-E4AD5E54BCF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4711552B-B687-4D67-999A-549EEF803879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4711552B-B687-4D67-999A-549EEF803879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4711552B-B687-4D67-999A-549EEF803879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4711552B-B687-4D67-999A-549EEF803879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB4798FD-B8BF-4890-9E7F-E4AD5E54BCF7} = {B78D9D70-81CC-4DD2-85DE-E607B14D6023}
+		{EA920FE6-53D2-4DE3-B3E5-EFEAC1BCB216} = {0EF9E650-13E7-482D-AC18-3DFE823FB0EB}
+		{4711552B-B687-4D67-999A-549EEF803879} = {0EF9E650-13E7-482D-AC18-3DFE823FB0EB}
+		{9F04A44C-F013-488A-AFE7-70E3645FBA59} = {7E9ECDCE-0144-4BAC-B147-BB5C31D23B17}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DA1534D-AF99-439B-BA93-A39BF6E7180B}
+	EndGlobalSection
+EndGlobal
