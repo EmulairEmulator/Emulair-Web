@@ -7,7 +7,9 @@ namespace EmulairWEB.Models
     {
         public Game()
         {
+            Achievements = new HashSet<Achievement>();
             Reviews = new HashSet<Review>();
+            Stats = new HashSet<Stat>();
         }
 
         public Guid GameId { get; set; }
@@ -16,6 +18,8 @@ namespace EmulairWEB.Models
         public DateTime? ReleaseDate { get; set; }
         public bool? IsDeleted { get; set; }
 
+        public virtual ICollection<Achievement> Achievements { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Stat> Stats { get; set; }
     }
 }

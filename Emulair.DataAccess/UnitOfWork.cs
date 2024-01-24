@@ -1,19 +1,14 @@
 ﻿using Emulair.Common;
-using EmulairWEB.Context;
+using EmulairWeb.Context;
 using EmulairWEB.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Emulair.DataAccess
 {
     public class UnitOfWork
     {
-        private readonly EmulairWEBContext Context;
+        private readonly EmulairWebContext Context;
 
-        public UnitOfWork(EmulairWEBContext context)
+        public UnitOfWork(EmulairWebContext context)
         {
             this.Context = context;
         }

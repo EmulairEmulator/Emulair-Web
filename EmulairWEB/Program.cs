@@ -1,11 +1,8 @@
-using Emulair.BusinessLogic;
 using Emulair.DataAccess;
 using Emulair.WebApp.Code;
 using Emulair.BusinessLogic.Base;
-using Emulair.DataAccess;
-using Emulair.WebApp.Code;
 using Microsoft.EntityFrameworkCore;
-using EmulairWEB.Context;
+using EmulairWeb.Context;
 using Emulair.WebApp.Code.ExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +14,7 @@ builder.Services.AddControllersWithViews();
 // Add services to the container.
 
 var connectionString = builder.Configuration["ConnectionString"];
-object value = builder.Services.AddDbContext<EmulairWEBContext>(options =>
+object value = builder.Services.AddDbContext<EmulairWebContext>(options =>
         options.UseSqlServer(connectionString));
 
 //builder.Configure.AddConfiguration((hostingContext, config) =>

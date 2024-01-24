@@ -1,22 +1,16 @@
-﻿using EmulairWEB.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Emulair.Common;
+using EmulairWeb.Context;
 
 namespace Emulair.DataAccess
 {
     public class BaseRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly EmulairWEBContext Context;
+        private readonly EmulairWebContext Context;
 
-        public BaseRepository(EmulairWEBContext context)
+        public BaseRepository(EmulairWebContext context)
         {
             this.Context = context;
         }
