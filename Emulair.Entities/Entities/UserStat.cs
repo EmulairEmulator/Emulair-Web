@@ -1,4 +1,7 @@
-﻿namespace EmulairWEB.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmulairWEB.Models
 {
     public partial class UserStat
     {

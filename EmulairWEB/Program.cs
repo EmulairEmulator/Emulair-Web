@@ -14,7 +14,7 @@ builder.Services.AddControllersWithViews();
 // Add services to the container.
 
 var connectionString = builder.Configuration["ConnectionString"];
-object value = builder.Services.AddDbContext<EmulairWebContext>(options =>
+object value = builder.Services.AddDbContext<EmulairWEBContext>(options =>
         options.UseSqlServer(connectionString));
 
 //builder.Configure.AddConfiguration((hostingContext, config) =>

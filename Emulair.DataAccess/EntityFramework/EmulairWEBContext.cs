@@ -3,13 +3,13 @@ using EmulairWEB.Models;
 
 namespace EmulairWeb.Context
 {
-    public partial class EmulairWebContext : DbContext
+    public partial class EmulairWEBContext : DbContext
     {
-        public EmulairWebContext()
+        public EmulairWEBContext()
         {
         }
 
-        public EmulairWebContext(DbContextOptions<EmulairWebContext> options)
+        public EmulairWEBContext(DbContextOptions<EmulairWEBContext> options)
             : base(options)
         {
         }
@@ -23,6 +23,7 @@ namespace EmulairWeb.Context
         public virtual DbSet<Stat> Stats { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserAchievement> UserAchievements { get; set; } = null!;
+        public virtual DbSet<UserGame> UserGames { get; set; } = null!;
         public virtual DbSet<UserStat> UserStats { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,7 +31,7 @@ namespace EmulairWeb.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\Local;Initial Catalog=EmulairWeb;Integrated Security=true;TrustServerCertificate=true;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\Local;Initial Catalog=EmulairWEB;Integrated Security=true;TrustServerCertificate=true;");
             }
         }
 
@@ -38,15 +39,16 @@ namespace EmulairWeb.Context
         {
             modelBuilder.Entity<Achievement>(entity =>
             {
-                entity.Property(e => e.AchievementId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("AchievementID");
+                entity.HasKey(e => new { e.AchievementId, e.GameId })
+                    .HasName("PK__Achievem__E5C8B99DB9D1D2E5");
+
+                entity.Property(e => e.AchievementId).HasColumnName("AchievementID");
+
+                entity.Property(e => e.GameId).HasColumnName("GameID");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.GameId).HasColumnName("GameID");
 
                 entity.Property(e => e.IconCompletedId).HasColumnName("IconCompletedID");
 
@@ -59,17 +61,18 @@ namespace EmulairWeb.Context
                 entity.HasOne(d => d.Game)
                     .WithMany(p => p.Achievements)
                     .HasForeignKey(d => d.GameId)
-                    .HasConstraintName("FK__Achieveme__GameI__3A81B327");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Achieveme__GameI__3E52440B");
 
                 entity.HasOne(d => d.IconCompleted)
                     .WithMany(p => p.AchievementIconCompleteds)
                     .HasForeignKey(d => d.IconCompletedId)
-                    .HasConstraintName("FK__Achieveme__IconC__3C69FB99");
+                    .HasConstraintName("FK__Achieveme__IconC__403A8C7D");
 
                 entity.HasOne(d => d.IconPending)
                     .WithMany(p => p.AchievementIconPendings)
                     .HasForeignKey(d => d.IconPendingId)
-                    .HasConstraintName("FK__Achieveme__IconP__3B75D760");
+                    .HasConstraintName("FK__Achieveme__IconP__3F466844");
             });
 
             modelBuilder.Entity<Game>(entity =>
@@ -134,12 +137,12 @@ namespace EmulairWeb.Context
                 entity.HasOne(d => d.Game)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.GameId)
-                    .HasConstraintName("FK__Reviews__GameID__2C3393D0");
+                    .HasConstraintName("FK__Reviews__GameID__300424B4");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Reviews__UserID__2D27B809");
+                    .HasConstraintName("FK__Reviews__UserID__30F848ED");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -168,12 +171,12 @@ namespace EmulairWeb.Context
                 entity.HasOne(d => d.Game)
                     .WithMany(p => p.Stats)
                     .HasForeignKey(d => d.GameId)
-                    .HasConstraintName("FK__Stats__GameID__33D4B598");
+                    .HasConstraintName("FK__Stats__GameID__37A5467C");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D105342503F99C")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D1053402BFFE4C")
                     .IsUnique();
 
                 entity.Property(e => e.UserId)
@@ -209,33 +212,58 @@ namespace EmulairWeb.Context
             modelBuilder.Entity<UserAchievement>(entity =>
             {
                 entity.HasKey(e => new { e.AchievementId, e.UserId })
-                    .HasName("PK__UserAchi__F61BBC2AE4E07F54");
+                    .HasName("PK__UserAchi__F61BBC2A948F132B");
 
                 entity.Property(e => e.AchievementId).HasColumnName("AchievementID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
+                entity.Property(e => e.GameId).HasColumnName("GameID");
+
                 entity.Property(e => e.UnlockedAt)
                     .IsRowVersion()
                     .IsConcurrencyToken();
-
-                entity.HasOne(d => d.Achievement)
-                    .WithMany(p => p.UserAchievements)
-                    .HasForeignKey(d => d.AchievementId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserAchie__Achie__3F466844");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserAchievements)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserAchie__UserI__403A8C7D");
+                    .HasConstraintName("FK__UserAchie__UserI__440B1D61");
+
+                entity.HasOne(d => d.Achievement)
+                    .WithMany(p => p.UserAchievements)
+                    .HasForeignKey(d => new { d.AchievementId, d.GameId })
+                    .HasConstraintName("FK__UserAchievements__4316F928");
+            });
+
+            modelBuilder.Entity<UserGame>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.GameId })
+                    .HasName("PK__UserGame__D52345D1B5FCBEC9");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.GameId).HasColumnName("GameID");
+
+                entity.Property(e => e.LastPlayed).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Game)
+                    .WithMany(p => p.UserGames)
+                    .HasForeignKey(d => d.GameId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserGames__GameI__2D27B809");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserGames)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserGames__UserI__2C3393D0");
             });
 
             modelBuilder.Entity<UserStat>(entity =>
             {
                 entity.HasKey(e => new { e.StatId, e.UserId })
-                    .HasName("PK__UserStat__EB6EA1D45EACE237");
+                    .HasName("PK__UserStat__EB6EA1D4539532BA");
 
                 entity.Property(e => e.StatId).HasColumnName("StatID");
 
@@ -251,13 +279,13 @@ namespace EmulairWeb.Context
                     .WithMany(p => p.UserStats)
                     .HasForeignKey(d => d.StatId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserStats__StatI__36B12243");
+                    .HasConstraintName("FK__UserStats__StatI__3A81B327");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserStats)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserStats__UserI__37A5467C");
+                    .HasConstraintName("FK__UserStats__UserI__3B75D760");
             });
 
             OnModelCreatingPartial(modelBuilder);

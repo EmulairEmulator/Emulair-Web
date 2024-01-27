@@ -23,6 +23,17 @@ CREATE TABLE Games (
     IsDeleted BIT
 );
 
+CREATE TABLE UserGames (
+	UserID UNIQUEIDENTIFIER,
+    GameID UNIQUEIDENTIFIER,
+    TotalHoursPlayed INT,
+	LastPlayed DATETIME,
+	PRIMARY KEY (UserID, GameID),
+	FOREIGN KEY (UserID) REFERENCES Users(UserID),
+	FOREIGN KEY (GameID) REFERENCES Games(GameID)
+
+);
+
 CREATE TABLE Reviews (
     ReviewID UNIQUEIDENTIFIER PRIMARY KEY,
     GameID UNIQUEIDENTIFIER,
@@ -69,12 +80,13 @@ CREATE TABLE UserStats (
 );
 
 CREATE TABLE Achievements (
-	AchievementID UNIQUEIDENTIFIER PRIMARY KEY,
+	AchievementID UNIQUEIDENTIFIER,
 	GameID UNIQUEIDENTIFIER,
 	IconPendingID UNIQUEIDENTIFIER,
 	IconCompletedID UNIQUEIDENTIFIER,
 	Name VARCHAR(100),
 	Description VARCHAR(100),
+	PRIMARY KEY (AchievementID, GameID),
 	FOREIGN KEY (GameID) REFERENCES Games(GameID),
 	FOREIGN KEY (IconPendingID) REFERENCES Images(ImageID),
 	FOREIGN KEY (IconCompletedID) REFERENCES Images(ImageID),
@@ -83,9 +95,10 @@ CREATE TABLE Achievements (
 CREATE TABLE UserAchievements (
 	UserID UNIQUEIDENTIFIER,
 	AchievementID UNIQUEIDENTIFIER,
+	GameID UNIQUEIDENTIFIER,
 	IsUnlocked BIT,
 	UnlockedAt TIMESTAMP,
 	PRIMARY KEY (AchievementID, UserID),
-	FOREIGN KEY (AchievementID) REFERENCES Achievements(AchievementID),
+	FOREIGN KEY (AchievementID, GameId) REFERENCES Achievements(AchievementID, GameId),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );

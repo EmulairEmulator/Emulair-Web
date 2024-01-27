@@ -10,6 +10,7 @@ namespace EmulairWEB.Models
             Achievements = new HashSet<Achievement>();
             Reviews = new HashSet<Review>();
             Stats = new HashSet<Stat>();
+            UserGames = new HashSet<UserGame>();
         }
 
         public Guid GameId { get; set; }
@@ -21,5 +22,6 @@ namespace EmulairWEB.Models
         public virtual ICollection<Achievement> Achievements { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Stat> Stats { get; set; }
+        public virtual ICollection<UserGame> UserGames { get; set; }
     }
 }

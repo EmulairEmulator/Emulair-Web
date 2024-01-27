@@ -8,9 +8,9 @@ namespace Emulair.DataAccess
     public class BaseRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly EmulairWebContext Context;
+        private readonly EmulairWEBContext Context;
 
-        public BaseRepository(EmulairWebContext context)
+        public BaseRepository(EmulairWEBContext context)
         {
             this.Context = context;
         }
