@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Emulair.Common\Emulair.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\icons\svg\" />
+  </ItemGroup>
+
 </Project>
