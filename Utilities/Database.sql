@@ -1,10 +1,8 @@
--- Tabelul Roles
 CREATE TABLE Roles (
 	RoleID INT PRIMARY KEY,
 	RoleName varchar(20)
 );
 
--- Tabelul Users
 CREATE TABLE Users (
     UserID UNIQUEIDENTIFIER PRIMARY KEY,
 	RoleID INT,
@@ -17,7 +15,6 @@ CREATE TABLE Users (
 	FOREIGN KEY (RoleID) REFERENCES Roles(RoleID),
 );
 
--- Tabelul Games
 CREATE TABLE Games (
     GameID UNIQUEIDENTIFIER PRIMARY KEY,
     Title VARCHAR(100),
@@ -26,7 +23,17 @@ CREATE TABLE Games (
     IsDeleted BIT
 );
 
--- Tabelul Reviews
+CREATE TABLE UserGames (
+	UserID UNIQUEIDENTIFIER,
+    GameID UNIQUEIDENTIFIER,
+    TotalHoursPlayed INT,
+	LastPlayed DATETIME,
+	PRIMARY KEY (UserID, GameID),
+	FOREIGN KEY (UserID) REFERENCES Users(UserID),
+	FOREIGN KEY (GameID) REFERENCES Games(GameID)
+
+);
+
 CREATE TABLE Reviews (
     ReviewID UNIQUEIDENTIFIER PRIMARY KEY,
     GameID UNIQUEIDENTIFIER,
@@ -39,7 +46,6 @@ CREATE TABLE Reviews (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
--- Tabelul Highlights
 CREATE TABLE Highlights (
     HighlightID UNIQUEIDENTIFIER PRIMARY KEY,
     Title VARCHAR(100),
@@ -49,12 +55,50 @@ CREATE TABLE Highlights (
 	IsDeleted BIT
 );
 
--- Tabelul UserStats
+CREATE TABLE Images (
+	ImageID UNIQUEIDENTIFIER PRIMARY KEY,
+	Content	VARBINARY(MAX)
+);
+
+CREATE TABLE Stats (
+	StatID UNIQUEIDENTIFIER PRIMARY KEY,
+	GameID UNIQUEIDENTIFIER,
+	Name VARCHAR(100),
+	FOREIGN KEY (GameID) REFERENCES Games(GameID)
+);
+
 CREATE TABLE UserStats (
-    StatID UNIQUEIDENTIFIER PRIMARY KEY,
+    StatID UNIQUEIDENTIFIER,
     UserID UNIQUEIDENTIFIER,
-    TotalHoursPlayed INT,
-    IsDeleted BIT,
+	-- when one value is not null, other two are null
+	ValueN DECIMAL,
+	ValueC VARCHAR(100),
+	ValueB BIT,
+	PRIMARY KEY (StatID, UserID),
+	FOREIGN KEY (StatID) REFERENCES Stats(StatID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
+CREATE TABLE Achievements (
+	AchievementID UNIQUEIDENTIFIER,
+	GameID UNIQUEIDENTIFIER,
+	IconPendingID UNIQUEIDENTIFIER,
+	IconCompletedID UNIQUEIDENTIFIER,
+	Name VARCHAR(100),
+	Description VARCHAR(100),
+	PRIMARY KEY (AchievementID, GameID),
+	FOREIGN KEY (GameID) REFERENCES Games(GameID),
+	FOREIGN KEY (IconPendingID) REFERENCES Images(ImageID),
+	FOREIGN KEY (IconCompletedID) REFERENCES Images(ImageID),
+);
+
+CREATE TABLE UserAchievements (
+	UserID UNIQUEIDENTIFIER,
+	AchievementID UNIQUEIDENTIFIER,
+	GameID UNIQUEIDENTIFIER,
+	IsUnlocked BIT,
+	UnlockedAt TIMESTAMP,
+	PRIMARY KEY (AchievementID, UserID),
+	FOREIGN KEY (AchievementID, GameId) REFERENCES Achievements(AchievementID, GameId),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);

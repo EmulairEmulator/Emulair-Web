@@ -1,12 +1,9 @@
-using Emulair.BusinessLogic;
 using Emulair.DataAccess;
 using Emulair.WebApp.Code;
 using Emulair.BusinessLogic.Base;
-using Emulair.DataAccess;
-using Emulair.WebApp.Code;
 using Microsoft.EntityFrameworkCore;
-using EmulairWEB.Context;
 using Emulair.WebApp.Code.ExtensionMethods;
+using Emulair.DataAccess.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +25,6 @@ object value = builder.Services.AddDbContext<EmulairWEBContext>(options =>
 //          .AddEnvironmentVariables();
 //});
 
-builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
@@ -78,6 +74,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

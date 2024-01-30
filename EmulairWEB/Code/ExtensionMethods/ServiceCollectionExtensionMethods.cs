@@ -1,7 +1,8 @@
 ﻿using Emulair.BusinessLogic;
 using Emulair.BusinessLogic.Base;
 using Emulair.BusinessLogic.Implementation.Account;
-using Emulair.BusinessLogic.Implementation.Games;
+using Emulair.BusinessLogic.Implementation.Game;
+using Emulair.BusinessLogic.Implementation.News;
 using Emulair.Code.Base;
 using Emulair.Common;
 using Emulair.Common.DTOs;
@@ -23,6 +24,8 @@ namespace Emulair.WebApp.Code.ExtensionMethods
         {
             services.AddScoped<ServiceDependencies>();
             services.AddScoped<UserAccountService>();
+            services.AddScoped<ImagesExtension>();
+            services.AddScoped<NewsService>();
             services.AddScoped<GameService>();
             return services;
         }
@@ -37,6 +40,7 @@ namespace Emulair.WebApp.Code.ExtensionMethods
 
                 var userIdClaim = claims?.FirstOrDefault(c => c.Type == "Id")?.Value;
                 var userEmailClaim = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                var userRoleClaim = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
                 var isParsingSuccessful = Guid.TryParse(userIdClaim, out Guid id);
 
                 var currentUser = new CurrentUserDto
@@ -44,7 +48,8 @@ namespace Emulair.WebApp.Code.ExtensionMethods
                     Id = id,
                     IsAuthenticated = httpContext.User.Identity.IsAuthenticated,
                     FirstName = httpContext.User.Identity.Name,
-                    Email = userEmailClaim
+                    Email = userEmailClaim,
+                    Role = userRoleClaim
                 };
                 return currentUser;
             });

@@ -29,6 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">News</a>
+                        </li>
                         @if (CurrentUser.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -40,7 +43,9 @@
                 <div>
                     @if (CurrentUser.IsAuthenticated)
                     {
-                        @CurrentUser.Email
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UserAccount" asp-action="ProfilePage"><i class="fas fa-user-circle"></i> @CurrentUser.Email</a>
+                        </li>
                         <a asp-controller="UserAccount" asp-action="Logout">Log out</a>
                     }
                     else
