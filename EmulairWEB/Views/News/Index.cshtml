@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Emulair.BusinessLogic.Implementation.News.Models.NewsModel>
+@inject Emulair.Common.DTOs.CurrentUserDto CurrentUser
+@{
+    ViewData["Title"] = "News";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/News/news.css" />
+</head>
+<body class="news-page">
+    <header>
+        <h1 class="news-title">Latest News</h1>
+        @if (CurrentUser.Role == "Admin" || CurrentUser.Role == "Writer")
+        {
+            <p>
+                <a asp-action="Create" class="create-button">Create New</a>
+            </p>
+        }
+    </header>
+    <main>
+        <div class="news-container">
+            @foreach (var item in Model)
+            {
+                <div class="news-card">
+                    <a href="@Url.Action("Details", new { id = item.NewsId })" class="news-image-link">
+                        <div class="news-image-container">
+                            @if(item.Images.Count > 0)
+                            { 
+                                <img src="@(item.Images.Any() ? "data:image/png;base64," + Convert.ToBase64String(item.Images.First()) : "path/to/fallback-image.png")" alt="News Image" class="news-image">
+                            }
+                        </div>
+                        <div class="news-details-container">
+                            <h3 class="news-title">@item.Title</h3>
+                            <p class="news-summary">@item.Description</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </main>
+</body>
+</html>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emulair.Entities.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace EmulairWEB.Models
@@ -25,6 +26,8 @@ namespace EmulairWEB.Models
         public virtual Role? Role { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<UserAchievement> UserAchievements { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public virtual ICollection<News1> News { get; set; } = new List<News1>();
         public virtual ICollection<UserGame> UserGames { get; set; }
         public virtual ICollection<UserStat> UserStats { get; set; }
     }

@@ -1,10 +1,10 @@
-using Emulair.DataAccess;
-using Emulair.WebApp.Code;
-using Emulair.BusinessLogic.Base;
+using CollectiHaven.BusinessLogic;
+using CollectiHaven.DataAccess;
+using CollectiHaven.DataAccess.EntityFramework;
+using CollectiHaven.WebApp.Code;
+using CollectiHaven.WebApp.Code.ExtensionMethods;
 using Microsoft.EntityFrameworkCore;
-using EmulairWeb.Context;
-using Emulair.WebApp.Code.ExtensionMethods;
-
+using Stripe;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +14,7 @@ builder.Services.AddControllersWithViews();
 // Add services to the container.
 
 var connectionString = builder.Configuration["ConnectionString"];
-object value = builder.Services.AddDbContext<EmulairWEBContext>(options =>
+object value = builder.Services.AddDbContext<CollectiHavenContext>(options =>
         options.UseSqlServer(connectionString));
 
 //builder.Configure.AddConfiguration((hostingContext, config) =>
@@ -34,13 +34,13 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddEmulairCurrentUser();
+builder.Services.AddCollectiHavenCurrentUser();
 
 builder.Services.AddPresentation();
-builder.Services.AddEmulairBusinessLogic();
+builder.Services.AddCollectiHavenBusinessLogic();
 
-builder.Services.AddAuthentication("EmulairCookies")
-       .AddCookie("EmulairCookies", options =>
+builder.Services.AddAuthentication("CollectiHavenCookies")
+       .AddCookie("CollectiHavenCookies", options =>
        {
            options.AccessDeniedPath = new PathString("/Home/Index");
            options.LoginPath = new PathString("/Account/Login");
@@ -75,7 +75,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
-app.UseAuthentication();
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -83,5 +83,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<CollectiHaven.BusinessLogic.Implementation.Hubs.NotificationHub>("/notificationHub");
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();

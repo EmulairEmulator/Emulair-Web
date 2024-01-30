@@ -88,12 +88,12 @@ namespace Emulair.WebApp.Controllers
             {
                 new Claim("Id", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.FirstName),
+                new Claim(ClaimTypes.Role, user.Role),
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
-            //user.Roles.ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role)));
 
-            var identity = new ClaimsIdentity(claims, "Cookies");
+            var identity = new ClaimsIdentity(claims, "EmulairCookies");
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(
