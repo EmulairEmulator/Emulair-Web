@@ -10,14 +10,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/News/news.css" />
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 20px;
+            background-color: #201A19;
+            color: #EDE0DE;
+        }
+
+        h1[data-title] {
+            padding: 7rem 0 2rem 0;
+        }
+
+        a[data-create] {
+            text-decoration: none;
+            color: #EDE0DE;
+            padding: 1rem;
+            transition: 200ms color, 200ms background-color;
+        }
+
+        a[data-create]:hover {
+            color: #201A19;
+            background-color: #EDE0DE;
+        }
+
+        .news-image-container {
+            margin-top: 5rem;
+        }
+
+        .news-image {
+            width: 70vw;
+        }
+
+        h3.news-title, .news-summary {
+            text-decoration: underline rgba(0, 0, 0, 0) !important;
+            color: #EDE0DE;
+            padding: 1rem;
+            transition: 200ms color, 200ms background-color;
+            margin: 0;
+        }
+
+        h3.news-title:hover, .news-summary:hover {
+            color: #201A19;
+            background-color: #EDE0DE;
+        }
+
+        .news-details-container {
+            padding-bottom: 6rem;
+        }
+    </style>
 </head>
 <body class="news-page">
     <header>
-        <h1 class="news-title">Latest News</h1>
+        <h1 class="news-title" data-title>Latest News</h1>
         @if (CurrentUser.Role == "Admin" || CurrentUser.Role == "Writer")
         {
             <p>
-                <a asp-action="Create" class="create-button">Create New</a>
+                <a asp-action="Create" class="create-button" data-create>Create New</a>
             </p>
         }
     </header>
