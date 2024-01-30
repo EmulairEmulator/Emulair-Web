@@ -1,4 +1,5 @@
 ﻿using Emulair.Common;
+using Emulair.Entities.Entities;
 using EmulairWeb.Context;
 using EmulairWEB.Models;
 
@@ -24,6 +25,14 @@ namespace Emulair.DataAccess
 
         private IRepository<UserAchievement> userAchievements;
         public IRepository<UserAchievement> UserAchievements => userAchievements ?? (userAchievements = new BaseRepository<UserAchievement>(Context));
+        private IRepository<Image> images;
+        public IRepository<Image> Images => images ?? (images = new BaseRepository<Image>(Context));
+        private IRepository<Comment> comments;
+        public IRepository<Comment> Comments => comments ?? (comments = new BaseRepository<Comment>(Context));
+        private IRepository<News1> news;
+        public IRepository<News1> News => news ?? (news = new BaseRepository<News1>(Context));
+        private IRepository<NewsImage> newsImages;
+        public IRepository<NewsImage> NewsImages => newsImages ?? (newsImages = new BaseRepository<NewsImage>(Context));
         public void SaveChanges()
         {
             Context.SaveChanges();

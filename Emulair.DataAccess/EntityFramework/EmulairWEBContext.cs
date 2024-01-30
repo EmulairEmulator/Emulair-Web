@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using EmulairWEB.Models;
+using Emulair.Entities.Entities;
 
 namespace EmulairWeb.Context
 {
@@ -31,7 +32,7 @@ namespace EmulairWeb.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\Local;Initial Catalog=EmulairWEB;Integrated Security=true;TrustServerCertificate=true;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\Local;Initial Catalog=Emulair;Integrated Security=true;TrustServerCertificate=true;");
             }
         }
 
@@ -154,6 +155,83 @@ namespace EmulairWeb.Context
                 entity.Property(e => e.RoleName)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.HasKey(e => e.CommentId).HasName("PK__Comment__C3B4DFCA19EEB8E5");
+
+                entity.ToTable("Comment");
+
+                entity.HasIndex(e => e.AuthorId, "IX_Comment_AuthorId");
+
+                entity.HasIndex(e => e.NewsId, "IX_Comment_NewsId");
+
+                entity.HasIndex(e => e.ParentCommentId, "IX_Comment_ParentCommentId");
+
+                entity.Property(e => e.CommentId).ValueGeneratedNever();
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+                entity.Property(e => e.PostDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Author).WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.AuthorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_User");
+
+                entity.HasOne(d => d.News).WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.NewsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_News");
+
+                entity.HasOne(d => d.ParentComment).WithMany(p => p.InverseParentComment)
+                    .HasForeignKey(d => d.ParentCommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_Comment");
+            });
+
+            modelBuilder.Entity<News1>(entity =>
+            {
+                entity.HasKey(e => e.NewsId).HasName("PK__News__954EBDF31C05BA29");
+
+                entity.HasIndex(e => e.AuthorId, "IX_News_AuthorId");
+
+                entity.Property(e => e.NewsId).ValueGeneratedNever();
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+                entity.Property(e => e.PostDate).HasColumnType("datetime");
+                entity.Property(e => e.Title).HasMaxLength(100);
+
+                entity.HasOne(d => d.Author).WithMany(p => p.News)
+                    .HasForeignKey(d => d.AuthorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_News_User");
+            });
+
+            modelBuilder.Entity<NewsImage>(entity =>
+            {
+                entity.HasKey(e => e.NewsImageId).HasName("PK__NewsImag__E8D225E2D0049367");
+
+                entity.ToTable("NewsImage");
+
+                entity.Property(e => e.NewsImageId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Image).WithMany(p => p.NewsImages)
+                    .HasForeignKey(d => d.ImageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NewsImage_Image");
+
+                entity.HasOne(d => d.News).WithMany(p => p.NewsImages)
+                    .HasForeignKey(d => d.NewsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NewsImage_News");
+            });
+
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.HasKey(e => e.ImageId).HasName("PK__Image__7516F70CFB31CDDE");
+
+                entity.ToTable("Image");
+
+                entity.Property(e => e.ImageId).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Stat>(entity =>

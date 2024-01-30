@@ -1,0 +1,68 @@
+﻿@model Emulair.BusinessLogic.Implementation.News.Models.NewsModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>News</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="NewsId" hidden/> 
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <div class="text-danger" id="titleError" style="display: none;">Title cannot exceed 50 characters.</div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="images" class="control-label">Images</label>
+                <input type="file" id="images" name="images" multiple class="form-control-file" />
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+
+            <div>
+                <h5>Existing Images</h5>
+                @if (Model.Images != null && Model.Images.Count > 0)
+                {
+                    <h3>Images</h3>
+                    <div>
+                        @foreach (var image in Model.Images)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(image))" alt="News Image" style="max-width: 200px; margin: 5px;" />
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>No existing images for this product.</p>
+                }
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/News/Create.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

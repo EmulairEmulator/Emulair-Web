@@ -1,0 +1,54 @@
+﻿@model Emulair.BusinessLogic.Implementation.News.Models.NewsModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="~/css/News/Create.css" />
+</head>
+<h1>Create</h1>
+
+<h4>News</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" id="title" class="form-control" />
+                <div class="text-danger" id="titleError" style="display: none;">Title cannot exceed 50 characters.</div>
+                <span asp-validation-for="Title" id="errorMessageTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" id="description" class="form-control" />
+            <span asp-validation-for="Description" id="errorMessageDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="images" class="control-label">Images</label>
+                <input type="file" id="images" name="images" accept=".jpg, .jpeg, .png" multiple class="form-control-file" />
+                <br />
+                <span id="imagesExtensionError" class="text-danger" style="display: none;">Only JPG and PNG files are allowed.</span>
+                <span id="imagesError" class="text-danger" style="display: none;">Add atleast 1 image!</span>
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button id="submit-button-images" type="button" value="Create" class="btn btn-primary">Create</button>
+            </div>
+    </div>
+</div>
+
+<div>
+    <br />
+    <a asp-action="Index" class="back-button">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/News/ExtensionCheck.js"></script>
+    <script src="~/js/News/Create.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
