@@ -5,7 +5,6 @@ using Emulair.BusinessLogic.Implementation.News.Validations;
 using Emulair.Common.Exceptions;
 using Emulair.Common.Extensions;
 using Emulair.DataAccess;
-using Emulair.Entities.Entities;
 using EmulairWEB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

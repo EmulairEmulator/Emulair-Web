@@ -1,0 +1,52 @@
+﻿@model CollectiHaven.BusinessLogic.Implementation.Account.Models.UserModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/Account/ProfilePage.css"/>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Profile</h1>
+    </div>
+
+    <div class="container">
+
+        <div class="profile-title">
+            Profile Details
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>ProfileDescription</th>
+                    <th>Email</th>
+                    <th>RegistrationDay</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                                            <td>@Model.FirstName</td>
+                    <td>@Model.LastName</td>
+                                            <td>@Model.Email</td>
+                    <td>@Model.BirthDay</td>
+                    <td>@Model.RegistrationDay</td>
+                    <td>@Model.Role</td>
+                    </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <a class="btn" asp-action="Edit">Edit Profile</a>
+        </p>
+    </div>
+
+</body>
+</html>

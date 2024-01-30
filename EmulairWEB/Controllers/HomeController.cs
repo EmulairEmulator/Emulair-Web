@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CollectiHaven.Controllers
+namespace Emulair.Controllers
 {
     public class HomeController : Controller
     {

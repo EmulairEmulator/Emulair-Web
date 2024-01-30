@@ -1,0 +1,67 @@
+﻿@using Emulair.BusinessLogic.Implementation.Game.Models
+@model IEnumerable<GameListItem>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IconId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAchievementsUnlocked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastPlayed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+                <td>
+                    <div class="news-card">
+                            <div class="news-image-container">
+                                @if (item.Images.Count > 0)
+                                {
+                                    <img src="@(item.Images.Any() ? "data:image/png;base64," + Convert.ToBase64String(item.Images.First()) : "path/to/fallback-image.png")" alt="News Image" class="news-image">
+                                }
+                            </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.TotalAchievementsUnlocked)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.LastPlayed)
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GameId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GameId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GameId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

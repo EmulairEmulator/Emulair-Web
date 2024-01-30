@@ -11,6 +11,7 @@ namespace Emulair.BusinessLogic.Implementation.Game.Mappings
             CreateMap<UserGame, GameListItem>()
                 .ForMember(dest => dest.GameId, opt => opt.MapFrom(src => src.GameId))
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Game.Title))
+                .ForMember(dest => dest.IconId, opt => opt.MapFrom(src => src.Game.IconId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Game.Description))
                 .ForMember(dest => dest.TotalHoursPlayed, opt => opt.MapFrom(src => src.TotalHoursPlayed))
                 .ForMember(dest => dest.LastPlayed, opt => opt.MapFrom(src => src.LastPlayed));

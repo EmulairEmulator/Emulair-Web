@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F4FDD9;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #6A8D73;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-title {
+    background-color: #4C6E52;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.container {
+    padding: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: #87A896;
+    color: white;
+    text-decoration: none;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .table th, .table td {
+        padding: 12px;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f2f2f2;
+    }

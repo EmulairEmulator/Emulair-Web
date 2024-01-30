@@ -1,7 +1,7 @@
 ﻿using Emulair.BusinessLogic;
 using Emulair.BusinessLogic.Base;
 using Emulair.BusinessLogic.Implementation.Account;
-using Emulair.BusinessLogic.Implementation.Games;
+using Emulair.BusinessLogic.Implementation.Game;
 using Emulair.BusinessLogic.Implementation.News;
 using Emulair.Code.Base;
 using Emulair.Common;

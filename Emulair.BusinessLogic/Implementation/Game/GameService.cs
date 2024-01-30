@@ -23,6 +23,7 @@ namespace Emulair.BusinessLogic.Implementation.Game
                             .OrderByDescending(userGame => userGame.LastPlayed)
                             .ToList();
 
+
             if (userGames == null)
             {
                 return gameList;
@@ -31,6 +32,8 @@ namespace Emulair.BusinessLogic.Implementation.Game
             foreach (var userGame in userGames)
             {
                 var gameListItem = Mapper.Map<UserGame, GameListItem>(userGame);
+
+
 
                 gameListItem.TotalAchievements = UnitOfWork.Achievements
                                                     .Get()
@@ -43,7 +46,11 @@ namespace Emulair.BusinessLogic.Implementation.Game
                                                                     && userAchievement.GameId == userGame.GameId)
                                                             .Where(userAchievement => userAchievement.IsUnlocked == true)
                                                             .Count();
-
+                var listImages = UnitOfWork.Images
+                    .Where(image => gameListItem.IconId == image.ImageId)
+                    .Select(image => image.Content)
+                    .ToList();
+                gameListItem.Images = listImages;
                 gameList.Add(gameListItem);
             }
 

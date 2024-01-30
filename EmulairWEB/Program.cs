@@ -2,8 +2,8 @@ using Emulair.DataAccess;
 using Emulair.WebApp.Code;
 using Emulair.BusinessLogic.Base;
 using Microsoft.EntityFrameworkCore;
-using EmulairWeb.Context;
 using Emulair.WebApp.Code.ExtensionMethods;
+using Emulair.DataAccess.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +25,6 @@ object value = builder.Services.AddDbContext<EmulairWEBContext>(options =>
 //          .AddEnvironmentVariables();
 //});
 
-builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {

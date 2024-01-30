@@ -1,0 +1,67 @@
+﻿.edit-news-button,
+.delete-news-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-news-button {
+    cursor: pointer;
+    background-color: #94c7a1 !important;
+}
+
+.delete-news-button {
+    cursor: pointer;
+    background-color: #dc3545;
+}
+
+.edit-news-button:hover {
+    background-color: #218838;
+    color: darkolivegreen;
+}
+.back-button:hover {
+    background-color: #218838;
+    color:darkolivegreen;
+}
+.delete-news-button:hover {
+    background-color: #ea6e6e;
+    color: darkred !important;
+}
+   .btn-primary:hover {
+        background-color: #218838;
+        color:darkolivegreen;
+    }
+.back-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #94c7a1 !important;
+}
+    .btn-primary {
+        background-color: #94c7a1 !important;
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #94c7a1 !important;
+    }

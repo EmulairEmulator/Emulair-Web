@@ -22,7 +22,7 @@ namespace Emulair.Controllers
         public IActionResult Index()
         {
             var games = gameService.GetGames();
-            return View();
+            return View(games);
         }
     }
 }

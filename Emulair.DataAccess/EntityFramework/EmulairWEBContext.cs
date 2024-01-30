@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using EmulairWEB.Models;
-using Emulair.Entities.Entities;
 
-namespace EmulairWeb.Context
+namespace Emulair.DataAccess.Context
 {
     public partial class EmulairWEBContext : DbContext
     {
@@ -16,9 +17,12 @@ namespace EmulairWeb.Context
         }
 
         public virtual DbSet<Achievement> Achievements { get; set; } = null!;
+        public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Game> Games { get; set; } = null!;
         public virtual DbSet<Highlight> Highlights { get; set; } = null!;
         public virtual DbSet<Image> Images { get; set; } = null!;
+        public virtual DbSet<News1> News1s { get; set; } = null!;
+        public virtual DbSet<NewsImage> NewsImages { get; set; } = null!;
         public virtual DbSet<Review> Reviews { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Stat> Stats { get; set; } = null!;
@@ -32,7 +36,7 @@ namespace EmulairWeb.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\Local;Initial Catalog=Emulair;Integrated Security=true;TrustServerCertificate=true;");
+                optionsBuilder.UseSqlServer("Server=(local);Initial Catalog=EmulairWEB;Integrated Security=true;TrustServerCertificate=true;");
             }
         }
 
@@ -42,6 +46,12 @@ namespace EmulairWeb.Context
             {
                 entity.HasKey(e => new { e.AchievementId, e.GameId })
                     .HasName("PK__Achievem__E5C8B99DB9D1D2E5");
+
+                entity.HasIndex(e => e.GameId, "IX_Achievements_GameID");
+
+                entity.HasIndex(e => e.IconCompletedId, "IX_Achievements_IconCompletedID");
+
+                entity.HasIndex(e => e.IconPendingId, "IX_Achievements_IconPendingID");
 
                 entity.Property(e => e.AchievementId).HasColumnName("AchievementID");
 
@@ -76,6 +86,41 @@ namespace EmulairWeb.Context
                     .HasConstraintName("FK__Achieveme__IconP__3F466844");
             });
 
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment");
+
+                entity.HasIndex(e => e.AuthorId, "IX_Comment_AuthorId");
+
+                entity.HasIndex(e => e.NewsId, "IX_Comment_NewsId");
+
+                entity.HasIndex(e => e.ParentCommentId, "IX_Comment_ParentCommentId");
+
+                entity.Property(e => e.CommentId).ValueGeneratedNever();
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.PostDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Author)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.AuthorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_User");
+
+                entity.HasOne(d => d.News)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.NewsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_News");
+
+                entity.HasOne(d => d.ParentComment)
+                    .WithMany(p => p.InverseParentComment)
+                    .HasForeignKey(d => d.ParentCommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_Comment");
+            });
+
             modelBuilder.Entity<Game>(entity =>
             {
                 entity.Property(e => e.GameId)
@@ -89,6 +134,11 @@ namespace EmulairWeb.Context
                 entity.Property(e => e.Title)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Icon)
+                    .WithMany(p => p.Games)
+                    .HasForeignKey(d => d.IconId)
+                    .HasConstraintName("FK_Games_Image");
             });
 
             modelBuilder.Entity<Highlight>(entity =>
@@ -116,13 +166,66 @@ namespace EmulairWeb.Context
 
             modelBuilder.Entity<Image>(entity =>
             {
+                entity.ToTable("Image");
+
                 entity.Property(e => e.ImageId)
                     .ValueGeneratedNever()
                     .HasColumnName("ImageID");
             });
 
+            modelBuilder.Entity<News1>(entity =>
+            {
+                entity.HasKey(e => e.NewsId)
+                    .HasName("PK__News__954EBDF31C05BA29");
+
+                entity.ToTable("News1");
+
+                entity.HasIndex(e => e.AuthorId, "IX_News_AuthorId");
+
+                entity.Property(e => e.NewsId).ValueGeneratedNever();
+
+                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
+
+                entity.Property(e => e.PostDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(100);
+
+                entity.HasOne(d => d.Author)
+                    .WithMany(p => p.News1s)
+                    .HasForeignKey(d => d.AuthorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_News_User");
+            });
+
+            modelBuilder.Entity<NewsImage>(entity =>
+            {
+                entity.ToTable("NewsImage");
+
+                entity.HasIndex(e => e.ImageId, "IX_NewsImage_ImageId");
+
+                entity.HasIndex(e => e.NewsId, "IX_NewsImage_NewsId");
+
+                entity.Property(e => e.NewsImageId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Image)
+                    .WithMany(p => p.NewsImages)
+                    .HasForeignKey(d => d.ImageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NewsImage_Image");
+
+                entity.HasOne(d => d.News)
+                    .WithMany(p => p.NewsImages)
+                    .HasForeignKey(d => d.NewsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NewsImage_News");
+            });
+
             modelBuilder.Entity<Review>(entity =>
             {
+                entity.HasIndex(e => e.GameId, "IX_Reviews_GameID");
+
+                entity.HasIndex(e => e.UserId, "IX_Reviews_UserID");
+
                 entity.Property(e => e.ReviewId)
                     .ValueGeneratedNever()
                     .HasColumnName("ReviewID");
@@ -157,85 +260,10 @@ namespace EmulairWeb.Context
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Comment>(entity =>
-            {
-                entity.HasKey(e => e.CommentId).HasName("PK__Comment__C3B4DFCA19EEB8E5");
-
-                entity.ToTable("Comment");
-
-                entity.HasIndex(e => e.AuthorId, "IX_Comment_AuthorId");
-
-                entity.HasIndex(e => e.NewsId, "IX_Comment_NewsId");
-
-                entity.HasIndex(e => e.ParentCommentId, "IX_Comment_ParentCommentId");
-
-                entity.Property(e => e.CommentId).ValueGeneratedNever();
-                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
-                entity.Property(e => e.PostDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Author).WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.AuthorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_User");
-
-                entity.HasOne(d => d.News).WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.NewsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_News");
-
-                entity.HasOne(d => d.ParentComment).WithMany(p => p.InverseParentComment)
-                    .HasForeignKey(d => d.ParentCommentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_Comment");
-            });
-
-            modelBuilder.Entity<News1>(entity =>
-            {
-                entity.HasKey(e => e.NewsId).HasName("PK__News__954EBDF31C05BA29");
-
-                entity.HasIndex(e => e.AuthorId, "IX_News_AuthorId");
-
-                entity.Property(e => e.NewsId).ValueGeneratedNever();
-                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
-                entity.Property(e => e.PostDate).HasColumnType("datetime");
-                entity.Property(e => e.Title).HasMaxLength(100);
-
-                entity.HasOne(d => d.Author).WithMany(p => p.News)
-                    .HasForeignKey(d => d.AuthorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_News_User");
-            });
-
-            modelBuilder.Entity<NewsImage>(entity =>
-            {
-                entity.HasKey(e => e.NewsImageId).HasName("PK__NewsImag__E8D225E2D0049367");
-
-                entity.ToTable("NewsImage");
-
-                entity.Property(e => e.NewsImageId).ValueGeneratedNever();
-
-                entity.HasOne(d => d.Image).WithMany(p => p.NewsImages)
-                    .HasForeignKey(d => d.ImageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_NewsImage_Image");
-
-                entity.HasOne(d => d.News).WithMany(p => p.NewsImages)
-                    .HasForeignKey(d => d.NewsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_NewsImage_News");
-            });
-
-            modelBuilder.Entity<Image>(entity =>
-            {
-                entity.HasKey(e => e.ImageId).HasName("PK__Image__7516F70CFB31CDDE");
-
-                entity.ToTable("Image");
-
-                entity.Property(e => e.ImageId).ValueGeneratedNever();
-            });
-
             modelBuilder.Entity<Stat>(entity =>
             {
+                entity.HasIndex(e => e.GameId, "IX_Stats_GameID");
+
                 entity.Property(e => e.StatId)
                     .ValueGeneratedNever()
                     .HasColumnName("StatID");
@@ -254,8 +282,11 @@ namespace EmulairWeb.Context
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.RoleId, "IX_Users_RoleID");
+
                 entity.HasIndex(e => e.Email, "UQ__Users__A9D1053402BFFE4C")
-                    .IsUnique();
+                    .IsUnique()
+                    .HasFilter("([Email] IS NOT NULL)");
 
                 entity.Property(e => e.UserId)
                     .ValueGeneratedNever()
@@ -292,6 +323,10 @@ namespace EmulairWeb.Context
                 entity.HasKey(e => new { e.AchievementId, e.UserId })
                     .HasName("PK__UserAchi__F61BBC2A948F132B");
 
+                entity.HasIndex(e => new { e.AchievementId, e.GameId }, "IX_UserAchievements_AchievementID_GameID");
+
+                entity.HasIndex(e => e.UserId, "IX_UserAchievements_UserID");
+
                 entity.Property(e => e.AchievementId).HasColumnName("AchievementID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
@@ -319,6 +354,8 @@ namespace EmulairWeb.Context
                 entity.HasKey(e => new { e.UserId, e.GameId })
                     .HasName("PK__UserGame__D52345D1B5FCBEC9");
 
+                entity.HasIndex(e => e.GameId, "IX_UserGames_GameID");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.GameId).HasColumnName("GameID");
@@ -342,6 +379,8 @@ namespace EmulairWeb.Context
             {
                 entity.HasKey(e => new { e.StatId, e.UserId })
                     .HasName("PK__UserStat__EB6EA1D4539532BA");
+
+                entity.HasIndex(e => e.UserId, "IX_UserStats_UserID");
 
                 entity.Property(e => e.StatId).HasColumnName("StatID");
 
