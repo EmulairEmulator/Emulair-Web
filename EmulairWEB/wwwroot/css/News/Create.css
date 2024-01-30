@@ -1,0 +1,51 @@
+﻿body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 20px;
+    background-color: #201A19;
+    color: #EDE0DE;
+}
+
+h1[data-title] {
+    padding: 7rem 0 2rem 0;
+}
+
+a[data-create] {
+    text-decoration: none;
+    color: #EDE0DE;
+    padding: 1rem;
+    transition: 200ms color, 200ms background-color;
+}
+
+a[data-create]:hover {
+    color: #201A19;
+    background-color: #EDE0DE;
+}
+
+.news-image-container {
+    margin-top: 5rem;
+}
+
+.news-image {
+    width: 70vw;
+}
+
+h3.news-title, .news-summary {
+    text-decoration: underline rgba(0, 0, 0, 0) !important;
+    color: #EDE0DE;
+    padding: 1rem;
+    transition: 200ms color, 200ms background-color;
+    margin: 0;
+}
+
+h3.news-title:hover, .news-summary:hover {
+    color: #201A19;
+    background-color: #EDE0DE;
+}
+
+.news-details-container {
+    padding-bottom: 6rem;
+}
+
+body {
+    min-height: 100vh;
+}

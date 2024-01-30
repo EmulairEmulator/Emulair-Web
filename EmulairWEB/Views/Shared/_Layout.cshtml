@@ -7,13 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Emulair</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Shared/site.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <style>
-        
-    </style>
 </head>
 <body>
     <header>
@@ -24,6 +21,9 @@
                 <li><a>Games</a></li>
                 <li><a>Profile</a></li>
                 <li><a asp-controller="News" asp-action="Index">News</a></li>
+                <li><a asp-controller="FAQ" asp-action="Index">FAQ</a></li>
+                <li><a asp-controller="UserAccount" asp-action="Login">Login</a></li>
+                <li><a asp-controller="UserAccount" asp-action="Register">Register</a></li>
             </ul>
         </nav>
     </header>

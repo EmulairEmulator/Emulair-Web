@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\css\Login\" />
+    <Folder Include="wwwroot\css\Register\" />
     <Folder Include="wwwroot\icons\svg\" />
   </ItemGroup>
 
