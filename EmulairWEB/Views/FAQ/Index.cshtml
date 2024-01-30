@@ -1,0 +1,123 @@
+﻿@{
+	ViewData["Title"] = "FAQ Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Emulair - Întrebări frecvente</title>
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="~/css/FAQ/Index.css" />
+	</head>
+	<body>
+
+		<h1 data-title>FAQ</h1>
+
+		<div class="faq-item">
+			<div onclick="toggleAnswer(this, 1)" class="flex-container show-answer">
+				<div class="image-container">
+					<img src="icons/svg/RoundArrow.svg" />
+				</div>
+				<h2>Cum descarc și instalez Emulair?</h2>
+			</div>
+			<div class="answer" id="answer1">
+				<p>Descărcarea și instalarea Emulair este simplă. Urmați pașii de pe site-ul nostru oficial sau din magazinul de aplicații al dispozitivului dumneavoastră.</p>
+			</div>
+		</div>
+
+		<div class="faq-item">
+			<div onclick="toggleAnswer(this, 2)" class="flex-container show-answer">
+				<div class="image-container">
+					<img src="icons/svg/RoundArrow.svg" />
+				</div>
+				<h2>Cum descarc și instalez Emulair?</h2>
+			</div>
+			<div class="answer" id="answer2">
+				<p>Emulair suportă o gamă largă de emulatoare, inclusiv PSP, PS4, Nintendo, etc. Puteți găsi lista completă pe pagina noastră de suport.</p>
+			</div>
+		</div>
+
+		<div class="faq-item">
+			<div onclick="toggleAnswer(this, 3)" class="flex-container show-answer">
+				<div class="image-container">
+					<img src="icons/svg/RoundArrow.svg" />
+				</div>
+				<h2>Cum descarc și instalez Emulair?</h2>
+			</div>
+			<div class="answer" id="answer3">
+				<p>Descărcarea și instalarea Emulair este simplă. Urmați pașii de pe site-ul nostru oficial sau din magazinul de aplicații al dispozitivului dumneavoastră.</p>
+			</div>
+		</div>
+
+		<div class="faq-item">
+			<div onclick="toggleAnswer(this, 4)" class="flex-container show-answer">
+				<div class="image-container">
+					<img src="icons/svg/RoundArrow.svg" />
+				</div>
+				<h2>Cum descarc și instalez Emulair?</h2>
+			</div>
+			<div class="answer" id="answer4">
+				<p>Emulair suportă o gamă largă de emulatoare, inclusiv PSP, PS4, Nintendo, etc. Puteți găsi lista completă pe pagina noastră de suport.</p>
+			</div>
+		</div>
+
+		<div class="faq-item">
+			<div onclick="toggleAnswer(this, 5)" class="flex-container show-answer">
+				<div class="image-container">
+					<img src="icons/svg/RoundArrow.svg" />
+				</div>
+				<h2>Cum descarc și instalez Emulair?</h2>
+			</div>
+			<div class="answer" id="answer5">
+				<p>Descărcarea și instalarea Emulair este simplă. Urmați pașii de pe site-ul nostru oficial sau din magazinul de aplicații al dispozitivului dumneavoastră.</p>
+			</div>
+		</div>
+
+		<div class="faq-item">
+			<div onclick="toggleAnswer(this, 6)" class="flex-container show-answer">
+				<div class="image-container">
+					<img src="icons/svg/RoundArrow.svg" />
+				</div>
+				<h2>Cum descarc și instalez Emulair?</h2>
+			</div>
+			<div class="answer" id="answer6">
+				<p>Emulair suportă o gamă largă de emulatoare, inclusiv PSP, PS4, Nintendo, etc. Puteți găsi lista completă pe pagina noastră de suport.</p>
+			</div>
+		</div>
+
+		<!-- Adaugă altele aici -->
+
+		<script>
+			function toggleAnswer(clickedElement, questionNumber) {
+				var answerId = 'answer' + questionNumber;
+				var answer = document.getElementById(answerId);
+				var answerComputedStyle = window.getComputedStyle(answer);
+
+				var children = clickedElement.children;
+
+				for (var i = 0; i < children.length; i++) {
+					var currentChild = children[i];
+
+					if (currentChild.tagName.toUpperCase() === 'DIV' && currentChild.classList.contains('image-container')) {
+						var image = currentChild.children[0];
+
+						if (answerComputedStyle.getPropertyValue('display') === 'none') {
+							console.log("rotire 90 deg");
+							image.style.transform = 'rotate(90deg)';
+						}
+						else
+							image.style.transform = 'rotate(0deg)';
+					}
+				}
+
+				if (answer.style.display === 'block') {
+					answer.style.display = 'none';
+				} else {
+					answer.style.display = 'block';
+				}
+			}
+		</script>
+	</body>
+</html>

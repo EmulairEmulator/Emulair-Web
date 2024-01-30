@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair.DataAccess", "Emula
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emulair.Common", "Emulair.Common\Emulair.Common.csproj", "{334490B3-DE44-4A92-8025-9EAEC88DDD9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEmulair", "TestEmulair\TestEmulair.csproj", "{0C59F1BA-0782-4625-B16C-20290680ABE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{334490B3-DE44-4A92-8025-9EAEC88DDD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C59F1BA-0782-4625-B16C-20290680ABE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C59F1BA-0782-4625-B16C-20290680ABE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C59F1BA-0782-4625-B16C-20290680ABE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C59F1BA-0782-4625-B16C-20290680ABE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

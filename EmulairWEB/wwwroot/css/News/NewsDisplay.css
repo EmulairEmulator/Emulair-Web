@@ -1,0 +1,87 @@
+﻿.news-container {
+display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.news-content {
+    flex-basis: 70 %;
+}
+
+.news-description {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.news-metadata {
+    margin-top: 20px;
+}
+
+.author,
+.post-date {
+    font-size: 14px;
+color: #777;
+}
+
+.news-comments {
+    flex-basis: 30 %;
+}
+
+.comment-list {
+    margin-top: 20px;
+}
+
+.comment
+{
+    margin-bottom: 10px;
+}
+
+.comment-text {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.comment-date {
+    font-size: 12px;
+color: #777;
+}
+
+.no-comments {
+    font-size: 16px;
+    font-style: italic;
+color: #777;
+}
+
+.comment-form {
+    margin-top: 20px;
+}
+
+# comment {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#addCommentButton {
+    margin-top: 10px;
+}
+
+.news-actions {
+    margin-top: 20px;
+}
+
+@media(max-width:768px) {
+    .news-container {
+        flex-direction: column;
+    }
+    .news-content, .news-comments {
+        flex-basis: 100 %;
+    }
+}

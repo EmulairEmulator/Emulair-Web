@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Emulair.BusinessLogic.Implementation.News.Models.NewsModel>
+@inject Emulair.Common.DTOs.CurrentUserDto CurrentUser
+@{
+    ViewData["Title"] = "News";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/News/Index.css" />
+        <title>@ViewData["Title"]</title>
+    </head>
+
+    <body class="news-page">
+        <header>
+            <h1 class="news-title" data-title>Latest News</h1>
+            @if (CurrentUser.Role == "Admin" || CurrentUser.Role == "Writer")
+            {
+                <p>
+                    <a asp-action="Create" class="create-button" data-create>Create New</a>
+                </p>
+            }
+        </header>
+        <main>
+            <div class="news-container">
+                @foreach (var item in Model)
+                {
+                    <div class="news-card">
+                        <a href="@Url.Action("Details", new { id = item.NewsId })" class="news-image-link">
+                            <div class="news-image-container">
+                                @if(item.Images.Count > 0)
+                                { 
+                                    <img src="@(item.Images.Any() ? "data:image/png;base64," + Convert.ToBase64String(item.Images.First()) : "path/to/fallback-image.png")" alt="News Image" class="news-image">
+                                }
+                            </div>
+                            <div class="news-details-container">
+                                <h3 class="news-title">@item.Title</h3>
+                                <p class="news-summary">@item.Description</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </main>
+    </body>
+</html>

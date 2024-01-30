@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Emulair.BusinessLogic.Base;
 using EmulairWEB.Models;
+using CollectiHaven.BusinessLogic.Implementation.Account.Models;
 
 namespace Emulair.BusinessLogic.Implementation.Account
 {
@@ -40,10 +41,17 @@ namespace Emulair.BusinessLogic.Implementation.Account
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IsAuthenticated = true
-                //Roles = user.UserRoles.Select(ur => ur.Role.Name).ToList()
+                IsAuthenticated = true,
+                Role = "Admin"
             };
             return UserNew;
+        }
+
+        public UserModel DisplayProfile()
+        {
+            var user = UnitOfWork.Users.Find(CurrentUser.Id);
+            var userProfile = Mapper.Map<User, UserModel>(user);
+            return userProfile;
         }
 
         public void RegisterNewUser(RegisterModel model)

@@ -1,14 +1,16 @@
-﻿using Emulair.Common;
+﻿using EmulairWEB.Models;
 using System;
 using System.Collections.Generic;
 
 namespace EmulairWEB.Models
 {
-    public partial class User : IEntity
+    public partial class User
     {
         public User()
         {
             Reviews = new HashSet<Review>();
+            UserAchievements = new HashSet<UserAchievement>();
+            UserGames = new HashSet<UserGame>();
             UserStats = new HashSet<UserStat>();
         }
 
@@ -23,6 +25,10 @@ namespace EmulairWEB.Models
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<UserAchievement> UserAchievements { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public virtual ICollection<News1> News1s { get; set; } = new List<News1>();
+        public virtual ICollection<UserGame> UserGames { get; set; }
         public virtual ICollection<UserStat> UserStats { get; set; }
     }
 }
