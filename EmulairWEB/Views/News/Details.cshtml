@@ -6,81 +6,81 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/News/Details.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    </head>
 
+    <body>
+        <h1 data-title>Details</h1>
 
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/News/Details.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-</head>
-<h1>Details</h1>
+        <div>
+            <h4>@Model.Title</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PostDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PostDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Author)
+                </dd>
+            </dl>
+            <h4>Comments</h4>
+            @if (Model.Comments != null && Model.Comments.Count > 0)
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <p>@comment.Message</p>
+                    <small>Posted on @comment.PostDate.ToString("yyyy-MM-dd")</small>
+                }
+            }
+            else
+            {
+                <p>No comments yet.</p>
+            }
 
-<div>
-    <h4>@Model.Title</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PostDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PostDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-    </dl>
-    <h4>Comments</h4>
-    @if (Model.Comments != null && Model.Comments.Count > 0)
-    {
-        @foreach (var comment in Model.Comments)
-        {
-            <p>@comment.Message</p>
-            <small>Posted on @comment.PostDate.ToString("yyyy-MM-dd")</small>
-        }
-    }
-    else
-    {
-        <p>No comments yet.</p>
-    }
+        </div>
+        <h4>Add Comment</h4>
 
-</div>
-<h4>Add Comment</h4>
+            <div class="form-group">
+                <label asp-for="NewComment.Message" class="control-label"></label>
+                <textarea asp-for="NewComment.Message" class="form-control" id="comment" data-id="@Model.NewsId" rows="4"></textarea>
+                <span asp-validation-for="NewComment.Message" id="errorMessage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary">Add Comment</button>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="NewComment.Message" class="control-label"></label>
-        <textarea asp-for="NewComment.Message" class="form-control" id="comment" data-id="@Model.NewsId" rows="4"></textarea>
-        <span asp-validation-for="NewComment.Message" id="errorMessage" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <button type="button" class="btn btn-primary">Add Comment</button>
-    </div>
+        <div>
+            @if(CurrentUser.Role == "Admin" || CurrentUser.Role == "Writer")
+            {
+                <a asp-action="Edit" asp-route-id="@Model.NewsId" class="edit-news-button">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.NewsId" class="delete-news-button">Delete</a>
+            }
+            <a asp-action="Index" class="back-button">Back to List</a>
+        </div>
+    </body>
+    <script src="~/js/News/AddComment.js"></script>
 
-<div>
-    @if(CurrentUser.Role == "Admin" || CurrentUser.Role == "Writer")
-    {
-        <a asp-action="Edit" asp-route-id="@Model.NewsId" class="edit-news-button">Edit</a>
-        <a asp-action="Delete" asp-route-id="@Model.NewsId" class="delete-news-button">Delete</a>
-    }
-    <a asp-action="Index" class="back-button">Back to List</a>
-</div>
-
-
-        <script src="~/js/News/AddComment.js"></script>
 </html>
