@@ -13,22 +13,44 @@
 </head>
 <body>
 
-	<h1>GAMES</h1>
+	<h1>EMULAIR</h1>
 
-	<section aria-label="Game Photos">
+	<section class="carousel-section" aria-label="Game Photos">
 		<div class="carousel" data-carousel>
 			<button class="carousel-button prev" data-carousel-button="prev">&#8656</button>
 			<button class="carousel-button next" data-carousel-button="next">&#8658;</button>
 
 			<ul data-slides>
-				<li class="slide" data-active>
-					<img src="images/mega-man-cover.jpeg"></img>
-				</li>
+				<li class="slide" data-active><img src="images/mega-man-cover.jpeg"></img></li>
 				<li class="slide"><img src="images/3-D Genesis.png"></img></li>
 				<li class="slide"><img src="images/3-D Ghost Attack.png"></img></li>
 				<li class="slide"><img src="images/3-D Havoc.png"></img></li>
 				<li class="slide"><img src="images/3-D Tic-Tac-Toe.png"></img></li>
 			</ul>
+		</div>
+	</section>
+
+	<section class="flex-row-container" aria-label="Description Text">
+		<div class="flex-column-container left-div">
+			<h2 data-first-row>Best Games</h2>
+			<h2 data-second-row>That you can play</h2>
+			<h2 data-third-row>Right Now</h2>
+			<p data-paragraph>
+				These are the best games that you can play.
+				These are the best games that you can play.
+				These are the best games that you can play.
+				These are the best games that you can play.
+				These are the best games that you can play.
+				These are the best games that you can play.
+			</p>
+			<form>
+				<input type="text" id="search-game" name="search game"/>
+				<input type="submit" id="submit-searched-game" value="Search Game"/>
+			</form>
+		</div>
+		<div class="photos-container right-div">
+			<img src="images/3-D Genesis.png" data-first-photo></img>
+			<img src="images/3-D Ghost Attack.png" data-second-photo></img>
 		</div>
 	</section>
 
