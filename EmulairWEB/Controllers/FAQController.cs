@@ -12,5 +12,12 @@ namespace CollectiHaven.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Hello()
+        {
+
+            return Ok("Alex");
+        }
     }
 }
