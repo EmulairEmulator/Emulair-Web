@@ -40,8 +40,8 @@ namespace Emulair.BusinessLogic.Implementation.Account
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IsAuthenticated = true
-                //Roles = user.UserRoles.Select(ur => ur.Role.Name).ToList()
+                IsAuthenticated = true,
+                Role = "Admin"
             };
             return UserNew;
         }

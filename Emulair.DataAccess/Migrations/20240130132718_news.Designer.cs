@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Emulair.DataAccess.Migrations
 {
     [DbContext(typeof(EmulairWEBContext))]
-    [Migration("20240128171117_mihai updates")]
-    partial class mihaiupdates
+    [Migration("20240130132718_news")]
+    partial class news
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,96 @@ namespace Emulair.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Emulair.Entities.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("isDeleted");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("NewsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ParentCommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PostDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("CommentId")
+                        .HasName("PK__Comment__C3B4DFCA19EEB8E5");
+
+                    b.HasIndex(new[] { "AuthorId" }, "IX_Comment_AuthorId");
+
+                    b.HasIndex(new[] { "NewsId" }, "IX_Comment_NewsId");
+
+                    b.HasIndex(new[] { "ParentCommentId" }, "IX_Comment_ParentCommentId");
+
+                    b.ToTable("Comment", (string)null);
+                });
+
+            modelBuilder.Entity("Emulair.Entities.Entities.News1", b =>
+                {
+                    b.Property<Guid>("NewsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("isDeleted");
+
+                    b.Property<DateTime>("PostDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("NewsId")
+                        .HasName("PK__News__954EBDF31C05BA29");
+
+                    b.HasIndex(new[] { "AuthorId" }, "IX_News_AuthorId");
+
+                    b.ToTable("News1");
+                });
+
+            modelBuilder.Entity("Emulair.Entities.Entities.NewsImage", b =>
+                {
+                    b.Property<Guid>("NewsImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("NewsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("NewsImageId")
+                        .HasName("PK__NewsImag__E8D225E2D0049367");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("NewsImage", (string)null);
+                });
 
             modelBuilder.Entity("EmulairWEB.Models.Achievement", b =>
                 {
@@ -132,9 +222,10 @@ namespace Emulair.DataAccess.Migrations
                     b.Property<byte[]>("Content")
                         .HasColumnType("varbinary(max)");
 
-                    b.HasKey("ImageId");
+                    b.HasKey("ImageId")
+                        .HasName("PK__Image__7516F70CFB31CDDE");
 
-                    b.ToTable("Images");
+                    b.ToTable("Image", (string)null);
                 });
 
             modelBuilder.Entity("EmulairWEB.Models.Review", b =>
@@ -343,6 +434,63 @@ namespace Emulair.DataAccess.Migrations
                     b.ToTable("UserStats");
                 });
 
+            modelBuilder.Entity("Emulair.Entities.Entities.Comment", b =>
+                {
+                    b.HasOne("EmulairWEB.Models.User", "Author")
+                        .WithMany("Comments")
+                        .HasForeignKey("AuthorId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Comment_User");
+
+                    b.HasOne("Emulair.Entities.Entities.News1", "News")
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Comment_News");
+
+                    b.HasOne("Emulair.Entities.Entities.Comment", "ParentComment")
+                        .WithMany("InverseParentComment")
+                        .HasForeignKey("ParentCommentId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Comment_Comment");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("News");
+
+                    b.Navigation("ParentComment");
+                });
+
+            modelBuilder.Entity("Emulair.Entities.Entities.News1", b =>
+                {
+                    b.HasOne("EmulairWEB.Models.User", "Author")
+                        .WithMany("News")
+                        .HasForeignKey("AuthorId")
+                        .IsRequired()
+                        .HasConstraintName("FK_News_User");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Emulair.Entities.Entities.NewsImage", b =>
+                {
+                    b.HasOne("EmulairWEB.Models.Image", "Image")
+                        .WithMany("NewsImages")
+                        .HasForeignKey("ImageId")
+                        .IsRequired()
+                        .HasConstraintName("FK_NewsImage_Image");
+
+                    b.HasOne("Emulair.Entities.Entities.News1", "News")
+                        .WithMany("NewsImages")
+                        .HasForeignKey("NewsId")
+                        .IsRequired()
+                        .HasConstraintName("FK_NewsImage_News");
+
+                    b.Navigation("Image");
+
+                    b.Navigation("News");
+                });
+
             modelBuilder.Entity("EmulairWEB.Models.Achievement", b =>
                 {
                     b.HasOne("EmulairWEB.Models.Game", "Game")
@@ -461,6 +609,18 @@ namespace Emulair.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Emulair.Entities.Entities.Comment", b =>
+                {
+                    b.Navigation("InverseParentComment");
+                });
+
+            modelBuilder.Entity("Emulair.Entities.Entities.News1", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("NewsImages");
+                });
+
             modelBuilder.Entity("EmulairWEB.Models.Achievement", b =>
                 {
                     b.Navigation("UserAchievements");
@@ -482,6 +642,8 @@ namespace Emulair.DataAccess.Migrations
                     b.Navigation("AchievementIconCompleteds");
 
                     b.Navigation("AchievementIconPendings");
+
+                    b.Navigation("NewsImages");
                 });
 
             modelBuilder.Entity("EmulairWEB.Models.Role", b =>
@@ -496,6 +658,10 @@ namespace Emulair.DataAccess.Migrations
 
             modelBuilder.Entity("EmulairWEB.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
+                    b.Navigation("News");
+
                     b.Navigation("Reviews");
 
                     b.Navigation("UserAchievements");
