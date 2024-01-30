@@ -101,6 +101,10 @@ h2 {
     flex-direction: column;
 }
 
+h1[data-title] {
+    padding-top: 7rem;
+}
+
 h2 {
     font-size: 3.5rem;
 }

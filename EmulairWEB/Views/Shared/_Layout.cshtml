@@ -12,6 +12,37 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <style>
+        /* nav css */
+        nav {
+            background-color: #A08C8A;
+        }
+
+        nav > ul {
+            background-color: #A08C8A;
+            z-index: 3;
+            width: 70vw;
+            position: fixed;
+            left: 16%;
+            display: flex;
+            list-style: none;
+            color: #EDE0DE;
+            font-weight: 500;
+            padding: 0;
+        }
+
+        nav > ul > li {
+            padding: 0.9rem 0.8rem;
+            transition: 200ms color, 200ms background-color;
+            cursor: pointer;
+        }
+
+        nav > ul > li:hover {
+            color: black;
+            background-color: #EDE0DE;
+        }
+
+        /* footer css */
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -61,7 +92,14 @@
 </head>
 <body>
     <header>
-
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>About us</li>
+                <li>Games</li>
+                <li>Profile</li>
+            </ul>
+        </nav>
     </header>
 
     <div class="container">
