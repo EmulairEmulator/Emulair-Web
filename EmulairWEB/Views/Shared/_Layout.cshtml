@@ -41,6 +41,16 @@
             background-color: #EDE0DE;
         }
 
+        nav > ul > li:hover > a {
+            color: black;
+            background-color: #EDE0DE;
+        }
+
+        nav > ul > li > a:hover {
+            color: black;
+            background-color: #EDE0DE;
+        }
+
         /* footer css */
 
         .footer {
@@ -80,6 +90,11 @@
             transition: 200ms color, 200ms background-color;
         }
 
+        li > a {
+            text-decoration: none;
+            color: #D9D9D9;
+        }
+
         footer > ul > li:hover {
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;
@@ -94,10 +109,11 @@
     <header>
         <nav>
             <ul>
-                <li>Home</li>
-                <li>About us</li>
-                <li>Games</li>
-                <li>Profile</li>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a>About us</a></li>
+                <li><a>Games</a></li>
+                <li><a>Profile</a></li>
+                <li><a asp-controller="News" asp-action="Index">News</a></li>
             </ul>
         </nav>
     </header>
