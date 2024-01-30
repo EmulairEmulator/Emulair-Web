@@ -92,9 +92,9 @@ h2 {
     align-items: center;
 }
 
-    .flex-row-container > div, section {
-        flex-grow: 1;
-    }
+.flex-row-container > div, section {
+    flex-grow: 1;
+}
 
 .flex-column-container {
     display: flex;
@@ -105,22 +105,22 @@ h2 {
     font-size: 3.5rem;
 }
 
-    h2[data-first-row] {
-        font-weight: 400;
-        padding-bottom: 0.7rem;
-    }
+h2[data-first-row] {
+    font-weight: 400;
+    padding-bottom: 0.7rem;
+}
 
-    h2[data-second-row] {
-        font-weight: 800;
-        color: #442927;
-        padding-bottom: 0.7rem;
-    }
+h2[data-second-row] {
+    font-weight: 800;
+    color: #442927;
+    padding-bottom: 0.7rem;
+}
 
-    h2[data-third-row] {
-        font-weight: 800;
-        color: #C00015;
-        padding-bottom: 1.5rem;
-    }
+h2[data-third-row] {
+    font-weight: 800;
+    color: #C00015;
+    padding-bottom: 1.5rem;
+}
 
 p[data-paragraph] {
     font-size: 1.3rem;
@@ -152,7 +152,7 @@ img[data-first-photo] {
 img[data-second-photo] {
     position: absolute;
     width: 400px;
-    height: auto;
+    height: auto;   
     left: 170px;
     top: 170px;
 }
@@ -188,4 +188,83 @@ form {
     box-shadow: 2px 3px 10px #EDE0DE;
     transition: 0.3s;
     cursor: pointer;
+}
+
+.search-game-section {
+    padding-bottom: 9rem;
+}
+
+.testimonials {
+    padding: 40px 0;
+    background: #534341;
+    color: #E7BDB8;
+    text-align: center;
+}
+
+.inner {
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+.border {
+    width: 160px;
+    height: 5px;
+    background: #E0C38C;
+    margin: 26px auto;
+    border-style: none !important;
+}
+
+#header-testimonial {
+    color: #FFB4AB;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.col {
+    flex: 33.33%;
+    max-width: 33.33%;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+.testimonial {
+    background: #C00015;
+    padding: 30px;
+}
+
+    .testimonial img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+
+.name {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+
+.stars {
+    color: #FEDFA6;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width:960px) {
+    .col {
+        flex: 100%;
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .col {
+        flex: 100%;
+        max-width: 100%;
+    }
 }
