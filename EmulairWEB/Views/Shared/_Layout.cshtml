@@ -11,6 +11,53 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px; /* Vertically center the text there */
+        }
+
+        body {
+            padding: 0;
+            margin: 0 !important;
+        }
+
+        footer > ul {
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            list-style: none;
+            background-color: #D9D9D9;
+            color: black;
+            margin: 0;
+            padding-left: 5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        footer > ul > li {
+            display: inline-block;
+            width: 150px;
+            padding-left: 0.7rem;
+            padding-top: 0.7rem;
+            padding-bottom: 0.7rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 200ms color, 200ms background-color;
+        }
+
+        footer > ul > li:hover {
+            padding-top: 0.7rem;
+            padding-bottom: 0.7rem;
+            cursor: pointer;
+            background-color: black;
+            color: #D9D9D9;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,6 +69,15 @@
             @RenderBody()
         </main>
     </div>
+
+    <footer>
+        <ul>
+            <li>Contacts</li>
+            <li>More About us</li>
+            <li>Map</li>
+            <li>Games</li>
+        </ul>
+    </footer>
 
     @RenderSection("Scripts", required: false)
 </body>

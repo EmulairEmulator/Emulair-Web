@@ -199,6 +199,7 @@ form {
     background: #534341;
     color: #E7BDB8;
     text-align: center;
+    margin-bottom: 7rem;
 }
 
 .inner {
@@ -238,11 +239,11 @@ form {
     padding: 30px;
 }
 
-    .testimonial img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
+.testimonial img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
 
 .name {
     font-size: 20px;
