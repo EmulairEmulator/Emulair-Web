@@ -12,12 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\Games\Mappings\" />
-    <Folder Include="Implementation\Games\Models\" />
-    <Folder Include="Implementation\Games\Validations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Emulair.DataAccess\Emulair.DataAccess.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using Emulair.BusinessLogic.Implementation.News.Models;
 using Emulair.Code.Base;
 using Emulair.Common;
-using Emulair.Entities.Entities;
+using EmulairWEB.Models;
 using Emulair.WebApp.Code.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

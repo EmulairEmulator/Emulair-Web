@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Emulair.BusinessLogic.Implementation.News.Models;
-using Emulair.Entities.Entities;
+using EmulairWEB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

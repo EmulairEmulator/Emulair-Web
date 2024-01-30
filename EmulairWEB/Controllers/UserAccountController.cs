@@ -8,8 +8,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Emulair.Code.Base;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Emulair.WebApp.Controllers
+namespace Emulair.Controllers
 {
     public class UserAccountController : BaseController
     {
@@ -54,7 +55,7 @@ namespace Emulair.WebApp.Controllers
         public async Task<IActionResult> Login(LoginModel model)
         {
             var user = Service.Login(model.Email, model.Password);
-            
+
             if (!user.IsAuthenticated)
             {
                 model.AreCredentialsInvalid = true;
@@ -74,32 +75,32 @@ namespace Emulair.WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public IActionResult DemoPage()
+        public IActionResult ProfilePage()
         {
-            var model = Service.GetUsers();
-
-            return View(model);
+            var CurrentUserDetails = Service.DisplayProfile();
+            return View(CurrentUserDetails);
         }
+
 
         private async Task LogIn(CurrentUserDto user)
         {
             var claims = new List<Claim>
             {
                 new Claim("Id", user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.FirstName),
-                new Claim(ClaimTypes.Role, user.Role),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim("Name", user.FirstName.ToString())
             };
 
 
-            var identity = new ClaimsIdentity(claims, "EmulairCookies");
+            var identity = new ClaimsIdentity(claims, "Cookies");
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(
                     scheme: "EmulairCookies",
                     principal: principal);
         }
+
 
         private async Task LogOut()
         {

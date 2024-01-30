@@ -1,4 +1,4 @@
-﻿using Emulair.Entities.Entities;
+﻿using EmulairWEB.Models;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +17,7 @@ namespace EmulairWEB.Models
 
         public virtual ICollection<Achievement> AchievementIconCompleteds { get; set; }
         public virtual ICollection<Achievement> AchievementIconPendings { get; set; }
+        public virtual ICollection<Game> Games { get; set; }
         public virtual ICollection<NewsImage> NewsImages { get; set; } = new List<NewsImage>();
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Emulair.Entities.Entities
+namespace EmulairWEB.Models
 {
     public partial class Comment : IEntity
     {

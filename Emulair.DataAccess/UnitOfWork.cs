@@ -1,6 +1,6 @@
 ﻿using Emulair.Common;
-using Emulair.Entities.Entities;
-using EmulairWeb.Context;
+using Emulair.DataAccess.Context;
+using EmulairWEB.Models;
 using EmulairWEB.Models;
 
 namespace Emulair.DataAccess

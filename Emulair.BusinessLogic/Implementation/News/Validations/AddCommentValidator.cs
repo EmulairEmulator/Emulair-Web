@@ -1,4 +1,4 @@
-﻿using Emulair.Entities.Entities;
+﻿using EmulairWEB.Models;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
