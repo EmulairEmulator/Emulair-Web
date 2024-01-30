@@ -7,6 +7,104 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="~/css/News/Create.css" />
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 20px;
+            background-color: #201A19;
+            color: #EDE0DE;
+        }
+
+        h1[data-title] {
+            padding: 7rem 0 2rem 0;
+        }
+
+        a[data-create] {
+            text-decoration: none;
+            color: #EDE0DE;
+            padding: 1rem;
+            transition: 200ms color, 200ms background-color;
+        }
+
+        a[data-create]:hover {
+            color: #201A19;
+            background-color: #EDE0DE;
+        }
+
+        .news-image-container {
+            margin-top: 5rem;
+        }
+
+        .news-image {
+            width: 70vw;
+        }
+
+        h3.news-title, .news-summary {
+            text-decoration: underline rgba(0, 0, 0, 0) !important;
+            color: #EDE0DE;
+            padding: 1rem;
+            transition: 200ms color, 200ms background-color;
+            margin: 0;
+        }
+
+        h3.news-title:hover, .news-summary:hover {
+            color: #201A19;
+            background-color: #EDE0DE;
+        }
+
+        .news-details-container {
+            padding-bottom: 6rem;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+        /* nav css */
+        nav {
+            background-color: #A08C8A;
+        }
+
+            nav > ul {
+                background-color: #A08C8A;
+                z-index: 3;
+                width: 70vw;
+                position: fixed;
+                left: 16%;
+                display: flex;
+                list-style: none;
+                color: #EDE0DE;
+                font-weight: 500;
+                padding: 0;
+            }
+
+                nav > ul > li {
+                    transition: 200ms color, 200ms background-color;
+                    cursor: pointer;
+                }
+
+                    nav > ul > li:hover {
+                        color: black;
+                        background-color: #EDE0DE;
+                    }
+
+                        nav > ul > li:hover > a {
+                            color: black;
+                            background-color: #EDE0DE;
+                        }
+
+                    nav > ul > li > a:hover {
+                        color: black;
+                        background-color: #EDE0DE;
+                    }
+
+                    nav > ul > li > a {
+                        display: inline-block;
+                        text-decoration: none;
+                        color: #D9D9D9;
+                        font-weight: 500;
+                        padding: 0.7rem 0.5rem;
+                    }
+    </style>
 </head>
 <h1>Create</h1>
 

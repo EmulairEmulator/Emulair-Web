@@ -12,6 +12,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <style>
+        body {
+            min-height: 100vh;
+        }
         /* nav css */
         nav {
             background-color: #A08C8A;
@@ -31,7 +34,6 @@
         }
 
         nav > ul > li {
-            padding: 0.9rem 0.8rem;
             transition: 200ms color, 200ms background-color;
             cursor: pointer;
         }
@@ -50,6 +52,15 @@
             color: black;
             background-color: #EDE0DE;
         }
+
+        nav > ul > li > a {
+            display: inline-block;
+            text-decoration: none;
+            color: #D9D9D9;
+            font-weight: 500;
+            padding: 0.7rem 0.5rem;
+        }
+
 
         /* footer css */
 
@@ -82,22 +93,12 @@
         footer > ul > li {
             display: inline-block;
             width: 150px;
-            padding-left: 0.7rem;
-            padding-top: 0.7rem;
-            padding-bottom: 0.7rem;
-            cursor: pointer;
-            font-weight: 500;
+            height: 3rem;
+            line-height: auto;
             transition: 200ms color, 200ms background-color;
         }
-
-        li > a {
-            text-decoration: none;
-            color: #D9D9D9;
-        }
-
+        
         footer > ul > li:hover {
-            padding-top: 0.7rem;
-            padding-bottom: 0.7rem;
             cursor: pointer;
             background-color: black;
             color: #D9D9D9;

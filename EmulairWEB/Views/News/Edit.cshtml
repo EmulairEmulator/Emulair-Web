@@ -4,60 +4,163 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                margin: 20px;
+                background-color: #201A19;
+                color: #EDE0DE;
+            }
 
-<h4>News</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="NewsId" hidden/> 
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <div class="text-danger" id="titleError" style="display: none;">Title cannot exceed 50 characters.</div>
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="images" class="control-label">Images</label>
-                <input type="file" id="images" name="images" multiple class="form-control-file" />
-                <span asp-validation-for="Images" class="text-danger"></span>
-            </div>
+            h1[data-title] {
+                padding: 7rem 0 2rem 0;
+            }
 
-            <div>
-                <h5>Existing Images</h5>
-                @if (Model.Images != null && Model.Images.Count > 0)
-                {
-                    <h3>Images</h3>
-                    <div>
-                        @foreach (var image in Model.Images)
-                        {
-                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(image))" alt="News Image" style="max-width: 200px; margin: 5px;" />
-                        }
-                    </div>
+            a[data-create] {
+                text-decoration: none;
+                color: #EDE0DE;
+                padding: 1rem;
+                transition: 200ms color, 200ms background-color;
+            }
+
+                a[data-create]:hover {
+                    color: #201A19;
+                    background-color: #EDE0DE;
                 }
-                else
-                {
-                    <p>No existing images for this product.</p>
-                }
-            </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            .news-image-container {
+                margin-top: 5rem;
+            }
+
+            .news-image {
+                width: 70vw;
+            }
+
+            h3.news-title, .news-summary {
+                text-decoration: underline rgba(0, 0, 0, 0) !important;
+                color: #EDE0DE;
+                padding: 1rem;
+                transition: 200ms color, 200ms background-color;
+                margin: 0;
+            }
+
+            h3.news-title:hover, .news-summary:hover {
+                color: #201A19;
+                background-color: #EDE0DE;
+            }
+
+            .news-details-container {
+                padding-bottom: 6rem;
+            }
+
+            body {
+            min-height: 100vh;
+        }
+        /* nav css */
+        nav {
+            background-color: #A08C8A;
+        }
+
+        nav > ul {
+            background-color: #A08C8A;
+            z-index: 3;
+            width: 70vw;
+            position: fixed;
+            left: 16%;
+            display: flex;
+            list-style: none;
+            color: #EDE0DE;
+            font-weight: 500;
+            padding: 0;
+        }
+
+        nav > ul > li {
+            transition: 200ms color, 200ms background-color;
+            cursor: pointer;
+        }
+
+        nav > ul > li:hover {
+            color: black;
+            background-color: #EDE0DE;
+        }
+
+        nav > ul > li:hover > a {
+            color: black;
+            background-color: #EDE0DE;
+        }
+
+        nav > ul > li > a:hover {
+            color: black;
+            background-color: #EDE0DE;
+        }
+
+        nav > ul > li > a {
+            display: inline-block;
+            text-decoration: none;
+            color: #D9D9D9;
+            font-weight: 500;
+            padding: 0.7rem 0.5rem;
+        }
+        </style>
+    </head>
+    <h1>Edit</h1>
+
+    <h4>News</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="NewsId" hidden/> 
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <div class="text-danger" id="titleError" style="display: none;">Title cannot exceed 50 characters.</div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="images" class="control-label">Images</label>
+                    <input type="file" id="images" name="images" multiple class="form-control-file" />
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <h5>Existing Images</h5>
+                    @if (Model.Images != null && Model.Images.Count > 0)
+                    {
+                        <h3>Images</h3>
+                        <div>
+                            @foreach (var image in Model.Images)
+                            {
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(image))" alt="News Image" style="max-width: 200px; margin: 5px;" />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No existing images for this product.</p>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</html>
 
 @section Scripts {
 
