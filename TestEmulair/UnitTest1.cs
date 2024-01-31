@@ -3,6 +3,7 @@ using Emulair.Controllers;
 using EmulairWEB.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NuGet.Protocol;
 using Xunit.Abstractions;
@@ -29,6 +30,34 @@ namespace TestEmulair
             var response = await _client.GetAsync("FAQ/Hello");
             response.EnsureSuccessStatusCode();
             response.Content.ReadAsStringAsync().Result.Should().Be("Alex");
+        }
+
+        [Fact]
+        public async Task Home_test_controller()
+        {
+
+            var response = await _client.GetAsync("Home");
+            response.EnsureSuccessStatusCode();
+            response.Content.ReadAsStringAsync().Result.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public async Task Home_Privacy_test_controller()
+        {
+
+            var response = await _client.GetAsync("Home/Privacy");
+            response.EnsureSuccessStatusCode();
+            response.Content.ReadAsStringAsync().Result.Should().NotBeNullOrEmpty();
+        }
+
+
+        [Fact]
+        public async Task Home_Wrong_test_controller()
+        {
+
+            var response = await _client.GetAsync("Home");
+            response.EnsureSuccessStatusCode();
+            response.Content.ReadAsStringAsync().Result.Should().Contain("gresit");
         }
 
         [Fact]
