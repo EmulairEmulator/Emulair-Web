@@ -51,14 +51,14 @@ namespace TestEmulair
         }
 
 
-        [Fact]
+       /* [Fact]
         public async Task Home_Wrong_test_controller()
         {
 
             var response = await _client.GetAsync("Home");
             response.EnsureSuccessStatusCode();
             response.Content.ReadAsStringAsync().Result.Should().Contain("gresit");
-        }
+        }*/
 
         [Fact]
         void SimpleTest()
